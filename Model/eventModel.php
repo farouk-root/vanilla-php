@@ -13,9 +13,10 @@ class EventModel {
     private $categoryID;
 
     // Constructor
-    public function __construct($eventID, $eventName, $date, $startTime, $endTime, $location, $description, $organizerName, $organizerEmail, $registrationDeadline, $categoryID) {
-        $this->eventID = $eventID;
+    public function __construct($eventName, $categoryID, $date, $startTime, $endTime, $location, $description, $organizerName, $organizerEmail, $registrationDeadline)
+    {
         $this->eventName = $eventName;
+        $this->categoryID = $categoryID;
         $this->date = $date;
         $this->startTime = $startTime;
         $this->endTime = $endTime;
@@ -24,7 +25,6 @@ class EventModel {
         $this->organizerName = $organizerName;
         $this->organizerEmail = $organizerEmail;
         $this->registrationDeadline = $registrationDeadline;
-        $this->categoryID = $categoryID;
     }
 
     public function getEventName() {

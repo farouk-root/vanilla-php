@@ -31,6 +31,7 @@ if(isset($_POST['Submit'])){
         echo "Failed to add new event.";
     }
 }
+
 ?>
 <form action="" method="post">
     <label for="eventName">Event Name:</label>

@@ -1,6 +1,7 @@
 <?php
 include_once '../config.php';
 include_once '../model/eventModel.php';
+include_once '../Model/categoryEventModel.php';
 class EventController {
     function ajouter (EventModel $eventModel){
         $query = "INSERT INTO Events (EventName, Date, StartTime, EndTime, Location, Description, OrganizerName, OrganizerEmail, RegistrationDeadline, CategoryID) 
@@ -24,6 +25,23 @@ class EventController {
         $eventID = $db->getConnection()->lastInsertId();
 
         return $eventID;
+    }
+
+    function getAllEvents(){
+        $query = "SELECT * FROM Events";
+        $db = new Database();
+        $events = $db->query($query);
+    
+        return $events;
+    }
+    function getCategorieByID($CategoryID) {
+        $sql = "SELECT * FROM categories WHERE CategoryID = :CategoryID";
+        $db = new Database();
+        $params = array(
+            ':CategoryID' => $CategoryID
+        );
+        $result =  $db->fetch($sql, $params);
+        return  new CategoryEventModel($result['CategoryID'], $result['CategoryName']);
     }
 }
 

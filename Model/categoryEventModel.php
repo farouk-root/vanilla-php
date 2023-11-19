@@ -30,5 +30,8 @@ class CategoryEventModel {
     public function setCategoryName($categoryName) {
         $this->categoryName = $categoryName;
     }
+    public function __toString() {
+        return  $this->categoryName;
+    }
 }
 ?>

@@ -43,14 +43,19 @@ class Database {
     }
 
     // Fetch a single row as an associative array
-    public function fetch($query, $params = []) {
-        $stmt = $this->execute($query, $params);
+    public function fetch($query, $param) {
+        $stmt = $this->execute($query, $param);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     // Fetch all rows as an associative array
     public function fetchAll($query, $params = []) {
         $stmt = $this->execute($query, $params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function query($query) {
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

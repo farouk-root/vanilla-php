@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/Controller/EventCategoryController.php" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/Controller/EventController.php" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/Controller/OrganisationController.php" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/Controller/ParticipantController.php" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/Controller/SponsorController.php" dialect="MariaDB" />
+  </component>
+</project>

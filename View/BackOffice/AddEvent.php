@@ -25,7 +25,7 @@ if (isset($_POST['submit'])) {
     $event = new Event(0, $name, $startTime, $endTime, $location, $description, $registrationDeadline, $organisation, $category);
 
     EventController::create($event);
-    header("Location: index.php");
+    header("Location: getAllEvents.php");
 }
 ?>
 <!DOCTYPE html>
@@ -59,6 +59,96 @@ if (isset($_POST['submit'])) {
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <script src="./js/form-validator.js"></script>
+    <style>
+    .invalid-input {
+        border: 1px solid red;
+    }
+</style>
+
+<script>
+    function validateForm() {
+        // Fetching form elements
+        var eventNameInput = document.querySelector('input[name="name"]');
+        var startTimeInput = document.querySelector('input[name="startTime"]');
+        var endTimeInput = document.querySelector('input[name="endTime"]');
+        var locationInput = document.querySelector('input[name="location"]');
+        var descriptionInput = document.querySelector('textarea[name="description"]');
+        var registrationDeadlineInput = document.querySelector('input[name="registrationDeadline"]');
+        var organisationSelect = document.querySelector('select[name="organisation"]');
+        var categorySelect = document.querySelector('select[name="category"]');
+
+        // Reset the styles from previous submissions
+        clearValidationStyles();
+
+        // Perform basic validation
+        var isValid = true;
+
+        // Check if event name is empty
+        if (eventNameInput.value.trim() === '') {
+            highlightInput(eventNameInput);
+            isValid = false;
+        }
+
+        // Check if start time is empty
+        if (startTimeInput.value.trim() === '') {
+            highlightInput(startTimeInput);
+            isValid = false;
+        }
+
+        // Check if end time is empty
+        if (endTimeInput.value.trim() === '') {
+            highlightInput(endTimeInput);
+            isValid = false;
+        }
+
+        // Check if location is empty
+        if (locationInput.value.trim() === '') {
+            highlightInput(locationInput);
+            isValid = false;
+        }
+
+        // Check if description is empty
+        if (descriptionInput.value.trim() === '') {
+            highlightInput(descriptionInput);
+            isValid = false;
+        }
+
+        // Check if registration deadline is empty
+        if (registrationDeadlineInput.value.trim() === '') {
+            highlightInput(registrationDeadlineInput);
+            isValid = false;
+        }
+
+        // Check if organisation is not selected
+        if (organisationSelect.value === 'Please Select an organisation') {
+            highlightInput(organisationSelect);
+            isValid = false;
+        }
+
+        // Check if category is not selected
+        if (categorySelect.value === 'Please Select a category') {
+            highlightInput(categorySelect);
+            isValid = false;
+        }
+
+        // Prevent form submission if validation fails
+        return isValid;
+    }
+
+    function highlightInput(inputElement) {
+        inputElement.classList.add('invalid-input');
+    }
+
+    function clearValidationStyles() {
+        var invalidInputs = document.querySelectorAll('.invalid-input');
+        invalidInputs.forEach(function (input) {
+            input.classList.remove('invalid-input');
+        });
+    }
+</script>
+
+
 </head>
 
 <body>
@@ -181,7 +271,7 @@ if (isset($_POST['submit'])) {
                 <div class="col-sm-12 col-xl-6">
                     <div class="bg-light rounded h-100 p-4">
                         <h6 class="mb-4">Add Event</h6>
-                        <form method="post">
+                        <form method="post" name="eventForm" onsubmit="return validateForm()">
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="floatingInput"
                                        placeholder="Event Name" name="name">

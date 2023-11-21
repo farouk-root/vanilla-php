@@ -20,7 +20,7 @@
                             class="fa fa-calendar me-2"></i>Events</a>
                 <div class="dropdown-menu bg-transparent border-0">
                     <a href="AddEvent.php" class="dropdown-item">Add</a>
-                    <a href="typography.html" class="dropdown-item">List</a>
+                    <a href="getAllEvents.php" class="dropdown-item">List</a>
                     <!--                    <a href="element.html" class="dropdown-item">Other Elements</a>-->
                 </div>
             </div>

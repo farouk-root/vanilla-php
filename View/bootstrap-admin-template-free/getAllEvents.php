@@ -96,7 +96,9 @@ $eventCategories = EventCategoryController::getAll();
 
 
 
-
+<!-- Sidebar Start -->
+<?php include_once 'components/sidebar.php' ?>
+    <!-- Sidebar End -->
 
 
 
@@ -133,7 +135,7 @@ $eventCategories = EventCategoryController::getAll();
                                             echo "<td>".$event['location']."</td>";
                                             echo "<td>".$event['registrationDeadline']."</td>";
                                             //echo "<td>".$organisation['name']."</td>";
-                                            echo "<td><a href='editEvent.php?id=".$event['id']."'><i class='fa fa-edit'></i></a> <a href='deleteEvent.php?id=".$event['id']."'><i class='fa fa-trash'></i></a></td>";
+                                            echo "<td><a href='UpdateEvent.php?id=".$event['id']."'><i class='fa fa-edit'></i></a> <a href='deleteEvent.php?id=".$event['id']."'><i class='fa fa-trash'></i></a></td>";
                                             echo "</tr>";
                                         }
                                         ?>

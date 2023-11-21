@@ -1,7 +1,8 @@
 <?php
-
 namespace Controller;
+include_once __DIR__.'/../Model/Organisation.php';
 
+use Model\Organisation;
 use Database;
 
 class OrganisationController

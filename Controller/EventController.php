@@ -7,9 +7,10 @@ use DateTime;
 use Exception;
 use Model\Event;
 
-include_once '../Database.php';
-include_once '../model/Event.php';
-include_once '../Model/EventCategory.php';
+
+include_once __DIR__.'/../Database.php';
+include_once __DIR__. '/../Model/Event.php';
+include_once __DIR__. '/../Model/EventCategory.php';
 
 class EventController
 {

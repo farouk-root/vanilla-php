@@ -2,8 +2,8 @@
 namespace Controller;
 use Database;
 
-include_once '../Database.php';
-include_once '../Model/EventCategory.php';
+include_once __DIR__ . '/../Database.php'; // after
+include_once __DIR__ . '/../Model/EventCategory.php';
 
 class EventCategoryController {
     static function getAll(): bool|array

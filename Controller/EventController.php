@@ -8,9 +8,10 @@ use Exception;
 use Model\Event;
 
 
-include_once __DIR__.'/../Database.php';
-include_once __DIR__. '/../Model/Event.php';
-include_once __DIR__. '/../Model/EventCategory.php';
+include_once  __DIR__ . '/../Database.php';
+include_once __DIR__ . '/../model/Event.php';
+include_once  __DIR__ . '/../Model/EventCategory.php';
+
 
 class EventController
 {
@@ -54,7 +55,7 @@ class EventController
     static function update(Event $event)
     {
         $db = Database::getConnection();
-        $query = "UPDATE events SET name = ':name', startTime = ':startTime', endTime = ':endTime', location = ':location', description = ':description', registrationDeadline = ':registrationDeadline', organisationID = ':organizerID', categoryID = ':categoryID' WHERE id = :id";
+        $query = "UPDATE events SET name = :name, startTime = :startTime, endTime = :endTime, location = :location, description = :description, registrationDeadline = :registrationDeadline, organisationID = :organisationID, categoryID = :categoryID WHERE id = :id";
         $req = $db->prepare($query);
 
         $req->execute([
@@ -66,10 +67,8 @@ class EventController
             'description' => $event->getDescription(),
             'registrationDeadline' => $event->getRegistrationDeadline(),
             'organisationID' => $event->getorganisationID(),
-            'categoryID' => $event->getStartTime()
+            'categoryID' => $event->getCategoryID()
         ]);
-
-        $db->query($query);
     }
 
     static function delete(int $id): void

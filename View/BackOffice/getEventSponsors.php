@@ -2,12 +2,14 @@
 include_once __DIR__ .'/../../Controller/EventController.php';
 include_once __DIR__ .'/../../Controller/EventCategoryController.php';
 include_once __DIR__ .'/../../Controller/OrganisationController.php';
+include_once __DIR__ .'/../../Controller/SponsorController.php';
 use Model\OrganisationController;
+
 use Controller\EventController;
 use Controller\EventCategoryController;
-$events = EventController::getAll();
-$eventCategories = EventCategoryController::getAll();
-//$organisations = OrganisationController::getAll();
+use Controller\SponsorController;
+
+$sponsors = SponsorController::getSponsorsByEvent($_GET['id']);
 
 ?>
 
@@ -65,48 +67,30 @@ $eventCategories = EventCategoryController::getAll();
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
-                                                <th scope="col">Event Name</th>
-                                                <th scope="col">Categry</th>
-                                                <th scope="col">Start Time</th>
-                                                <th scope="col">End Time</th>
-                                                <th scope="col">Location</th>
-                                                <th scope="col">Registration Deadline</th>
-                                                
-                                                <th scope="col">Participants</th>
-                                                <th scope="col">Sponsors</th>
+                                                <th scope="col">Sponsor Name</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Phone</th>
+                                                <th scope="col">Address</th>
+                                                <th scope="col">Event ID</th>
                                                 <th scope="col">Update</th>
                                                 <th scope="col">Delete</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php 
-                                            foreach($events as $event)
+                                            <?php
+                                            foreach($sponsors as $sponsor)
                                             {
-                                                $eventCategory = EventCategoryController::getOne($event['categoryID']);
-                                                //$organisation = OrganisationController::getOne($event['organisationID']);
-                                                echo "<tr>";
-                                                echo "<td>".$event['id']."</td>";
-                                                echo "<td>".$event['name']."</td>";
-                                                echo "<td>".$eventCategory['name']."</td>";
-                                                echo "<td>".$event['startTime']."</td>";
-                                                echo "<td>".$event['endTime']."</td>";
-                                                echo "<td>".$event['location']."</td>";
-                                                echo "<td>".$event['registrationDeadline']."</td>";
-                                                //echo "<td>".$organisation['name']."</td>";
-                        
-                                                echo "<td>
-                                                            <a href='eventDetails.php?id=".$event['id']."'><i class='fa fa-eye'></i></a> 
-                                                        </td>";
-                                                echo "<td>
-                                                        <a href='getEventSponsors.php?id=".$event['id']."'><i class='fa fa-eye'></i></a>
-                                                    </td>";
-                                                echo "<td>
-                                                        <a href='UpdateEvent.php?id=".$event['id']."'><i class='fa fa-edit'></i></a>
-                                                    </td>";
-                                                echo "<td>
-                                                    <a href='deleteEvent.php?id=".$event['id']."'><i class='fa fa-trash'></i></a>
-                                                </td>";
-                                                echo "</tr>";
+                                                echo '<tr>';
+                                                echo '<th scope="row">'.$sponsor['id'].'</th>';
+                                                echo '<td>'.$sponsor['name'].'</td>';
+                                                echo '<td>'.$sponsor['email'].'</td>';
+                                                echo '<td>'.$sponsor['phone'].'</td>';
+                                                echo '<td>'.$sponsor['address'].'</td>';
+                                                echo '<td>'.$sponsor['id_event'].'</td>';
+                                                echo '<td><a href="updateSponsor.php?id='.$sponsor['id'].'"><i class="bi bi-pencil-square"></i></a></td>';
+                                                echo '<td><a href="deleteSponsor.php?id='.$sponsor['id'].'"><i class="bi bi-trash"></i></a></td>';
+                                                echo '</tr>';
                                             }
                                             ?>
                         

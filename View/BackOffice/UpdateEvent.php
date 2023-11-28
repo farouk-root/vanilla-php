@@ -31,7 +31,7 @@ if (isset($_POST['submit'])) {
     $event = new Event($_GET['id'], $name, $startTime, $endTime, $location, $description, $registrationDeadline, $organisation, $category);
 
     EventController::update($event);
-    header("Location: index.php");
+    header("Location: getAllEvents.php");
 }
 ?>
 <!DOCTYPE html>
@@ -69,96 +69,121 @@ if (isset($_POST['submit'])) {
     .invalid-input {
         border: 1px solid red;
     }
+    .error-message {
+    color: #ff0000; /* Red color for error messages */
+    font-size: 14px;
+    margin-top: 5px;
+}
 </style>
 
 <script>
-    function validateForm() {
-        // Fetching form elements
-        var eventNameInput = document.querySelector('input[name="name"]');
-        var startTimeInput = document.querySelector('input[name="startTime"]');
-        var endTimeInput = document.querySelector('input[name="endTime"]');
-        var locationInput = document.querySelector('input[name="location"]');
-        var descriptionInput = document.querySelector('textarea[name="description"]');
-        var registrationDeadlineInput = document.querySelector('input[name="registrationDeadline"]');
-        var organisationSelect = document.querySelector('select[name="organisation"]');
-        var categorySelect = document.querySelector('select[name="category"]');
+function validateForm() {
+    // Fetching form elements
+    var eventNameInput = document.querySelector('input[name="name"]');
+    var startTimeInput = document.querySelector('input[name="startTime"]');
+    var endTimeInput = document.querySelector('input[name="endTime"]');
+    var locationInput = document.querySelector('input[name="location"]');
+    var descriptionInput = document.querySelector('textarea[name="description"]');
+    var registrationDeadlineInput = document.querySelector('input[name="registrationDeadline"]');
+    var organisationSelect = document.querySelector('select[name="organisation"]');
+    var categorySelect = document.querySelector('select[name="category"]');
 
-        // Reset the styles from previous submissions
-        clearValidationStyles();
+    // Reset the styles and error messages from previous submissions
+    clearValidationStyles();
 
-        // Perform basic validation
-        var isValid = true;
+    // Perform basic validation
+    var isValid = true;
 
-        // Check if event name is empty
-        if (eventNameInput.value.trim() === '') {
-            highlightInput(eventNameInput);
-            displayErrorMessage(eventNameInput, 'Event Name is required');
-            isValid = false;
-        }
-
-        // Check if start time is empty
-        if (startTimeInput.value.trim() === '') {
-            highlightInput(startTimeInput);
-            displayErrorMessage(startTimeInput, 'Start Time is required');
-            isValid = false;
-        }
-
-        // Check if end time is empty
-        if (endTimeInput.value.trim() === '') {
-            highlightInput(endTimeInput);
-            displayErrorMessage(endTimeInput, 'End Time is required');
-            isValid = false;
-        }
-
-        // Check if location is empty
-        if (locationInput.value.trim() === '') {
-            highlightInput(locationInput);
-            displayErrorMessage(locationInput, 'Location is required');
-            isValid = false;
-        }
-
-        // Check if description is empty
-        if (descriptionInput.value.trim() === '') {
-            highlightInput(descriptionInput);
-            displayErrorMessage(descriptionInput, 'Description is required');
-            isValid = false;
-        }
-
-        // Check if registration deadline is empty
-        if (registrationDeadlineInput.value.trim() === '') {
-            highlightInput(registrationDeadlineInput);
-            displayErrorMessage(registrationDeadlineInput, 'Registration Deadline is required');
-            isValid = false;
-        }
-
-        // Check if organisation is not selected
-        if (organisationSelect.value === 'Please Select an organisation') {
-            highlightInput(organisationSelect);
-            displayErrorMessage(organisationSelect, 'Please select an organisation');
-            isValid = false;
-        }
-
-        // Check if category is not selected
-        if (categorySelect.value === 'Please Select a category') {
-            highlightInput(categorySelect);
-            displayErrorMessage(categorySelect, 'Please select a category');
-            isValid = false;
-        }
-
-        // Prevent form submission if validation fails
-        return isValid;
+    // Check if event name is empty
+    if (eventNameInput.value.trim() === '') {
+        highlightInput(eventNameInput);
+        displayErrorMessage(eventNameInput, 'Event name cannot be empty');
+        isValid = false;
     }
 
-    function highlightInput(inputElement) {
-        inputElement.classList.add('invalid-input');
+    // Check if start time is empty
+    if (startTimeInput.value.trim() === '') {
+        highlightInput(startTimeInput);
+        displayErrorMessage(startTimeInput, 'Start time cannot be empty');
+        isValid = false;
     }
 
-    function clearValidationStyles() {
-        var invalidInputs = document.querySelectorAll('.invalid-input');
-        invalidInputs.forEach(function (input) {
-            input.classList.remove('invalid-input');
-        });
+    // Check if end time is empty
+    if (endTimeInput.value.trim() === '') {
+        highlightInput(endTimeInput);
+        displayErrorMessage(endTimeInput, 'End time cannot be empty');
+        isValid = false;
     }
+
+    // Check if location is empty
+    if (locationInput.value.trim() === '') {
+        highlightInput(locationInput);
+        displayErrorMessage(locationInput, 'Location cannot be empty');
+        isValid = false;
+    }
+
+    // Check if description is empty
+    if (descriptionInput.value.trim() === '') {
+        highlightInput(descriptionInput);
+        displayErrorMessage(descriptionInput, 'Description cannot be empty');
+        isValid = false;
+    }
+
+    // Check if registration deadline is empty
+    if (registrationDeadlineInput.value.trim() === '') {
+        highlightInput(registrationDeadlineInput);
+        displayErrorMessage(registrationDeadlineInput, 'Registration deadline cannot be empty');
+        isValid = false;
+    }
+
+    // Check if organisation is not selected
+    if (organisationSelect.value === 'Please Select an organisation') {
+        highlightInput(organisationSelect);
+        displayErrorMessage(organisationSelect, 'Please select an organisation');
+        isValid = false;
+    }
+
+    // Check if category is not selected
+    if (categorySelect.value === 'Please Select a category') {
+        highlightInput(categorySelect);
+        displayErrorMessage(categorySelect, 'Please select a category');
+        isValid = false;
+    }
+
+    // Prevent form submission if validation fails
+    return isValid;
+}
+
+function highlightInput(inputElement) {
+    inputElement.classList.add('invalid-input');
+}
+
+function displayErrorMessage(inputElement, errorMessage) {
+    // Check if there's already an error message displayed
+    var existingErrorMessage = inputElement.nextElementSibling;
+    if (existingErrorMessage && existingErrorMessage.classList.contains('error-message')) {
+        existingErrorMessage.innerText = errorMessage;
+    } else {
+        var errorElement = document.createElement('div');
+        errorElement.innerText = errorMessage;
+        errorElement.classList.add('error-message');
+        inputElement.parentNode.insertBefore(errorElement, inputElement.nextSibling);
+    }
+}
+
+function clearValidationStyles() {
+    var invalidInputs = document.querySelectorAll('.invalid-input');
+    invalidInputs.forEach(function (input) {
+        input.classList.remove('invalid-input');
+
+        // Remove error messages
+        var errorElement = input.nextElementSibling;
+        if (errorElement && errorElement.classList.contains('error-message')) {
+            input.parentNode.removeChild(errorElement);
+        }
+    });
+}
+
 </script>
 </head>
 
@@ -175,7 +200,7 @@ if (isset($_POST['submit'])) {
 
 
     <!-- Sidebar Start -->
-    <?php include_once 'components/sidebar.php' ?>
+    <?php include_once 'components/sidebarEvent.php' ?>
     <!-- Sidebar End -->
 
 

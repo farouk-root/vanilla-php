@@ -79,7 +79,7 @@ $events = EventController::getAll();
                 <a href="index.html" class="nav-item nav-link">Home</a>
                 <a href="about.html" class="nav-item nav-link">About</a>
                 <a href="causes.html" class="nav-item nav-link">Causes</a>
-                <a href="event.html" class="nav-item nav-link active">Events</a>
+                <a href="event.php" class="nav-item nav-link active">Events</a>
                 <a href="blog.html" class="nav-item nav-link">Blog</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
@@ -132,10 +132,16 @@ $events = EventController::getAll();
                     try {
                         $date = new DateTime(explode(" ", $event['startTime'])[0]);
                         $date = $date->format('d M Y');
+                        $enddate = new DateTime(explode(" ", $event['endTime'])[0]);
+                        $enddate = $enddate->format('d M Y');
+                        $startTime = explode(" ", $event['startTime'])[1];
+                        $endTime = explode(" ", $event['endTime'])[1];
+                        
+
                     } catch (Exception $e) {
                         echo $e->getMessage();
                     }
-                    $startDateTime = explode(" ", $event['startTime'])[0];
+                    $startDateTime = explode(" ", $event['startTime'])[1];
                     $endDateTime = explode(" ", $event['endTime'])[1];
                     ?>
                     <div class="col-lg-6">
@@ -143,16 +149,74 @@ $events = EventController::getAll();
                             <img src="img/event-1.jpg" alt="Image">
                             <div class="event-content">
                                 <div class="event-meta">
-                                    <p><i class="fa fa-calendar-alt"></i><?= $date ?></p>
-                                    <p><i class="far fa-clock"></i><?= $startDateTime ?> - <?= $endDateTime ?></p>
+                                    <?php
+                                    if ($date == $enddate) {
+                                        ?>
+                                        <div style="border-bottom:1px solid #000;">
+                                            <div style="display: inline;">
+                                                <i class="fa fa-calendar-alt" style="display: inline;color:#7CFC00"></i>
+                                                <h2 style="display: inline;font-size:medium;color:#7CFC00">Start</h2>
+                                            </div>
+                                            <div><?= $date ?></div>
+                                            <div style="display: inline;">
+                                                <i class="fa fa-clock" style="display: inline;color:#7CFC00"></i>
+                                                <h2 style="display: inline;font-size:medium;color:#7CFC00"><?= $startTime ?> - <?= $endTime ?></h2>
+                                            </div>
+                                        </div>
+
+
+
+                                        <p><i class="fa fa-map-marker-alt"></i><?= $event['location'] ?> </p>
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <div style="border-bottom:1px solid #000;">
+                                            <div style="display: inline;">
+                                                <i class="fa fa-calendar-alt" style="display: inline;color:#7CFC00"></i>
+                                                <h2 style="display: inline;font-size:medium;color:#7CFC00">Start</h2>
+                                            </div>
+                                            <div><?= $date ?></div>
+                                            <div style="display: inline;">
+                                                <i class="fa fa-clock" style="display: inline;color:#7CFC00"></i>
+                                                <h2 style="display: inline;font-size:medium;color:#7CFC00"><?= $startTime ?></h2>
+                                            </div>
+                                        </div>
+                                        <div style="border-bottom:1px solid #000;">
+                                            <div style="display: inline;">
+                                                <i class="fa fa-calendar-alt" style="display: inline;color:red"></i>
+                                                <h2 style="display: inline;font-size:medium;color:red">End</h2>
+                                            </div>
+                                            <div><?= $enddate ?></div>
+                                            <div style="display: inline;">
+                                                <i class="fa fa-clock" style="display: inline;color:red"></i>
+                                                <h2 style="display: inline;font-size:medium;color:red  "><?= $endTime ?></h2>
+                                            </div>
+                                        </div>
+                                    <?php
+                                    }
+                                    ?>
                                     <p><i class="fa fa-map-marker-alt"></i><?= $event['location'] ?> </p>
+                                    
                                 </div>
                                 <div class="event-text">
                                     <h3><?= $event['name'] ?></h3>
-                                    <p><?= $event['description'] ?></p>
-                                    <a class="btn btn-custom" href="join-event.php?id=<?= $event['id'] ?>">Join Now</a>
+                                    <div >
+                                        <?php
+                                        $description = $event['description'];
+                                        $maxLength = 20; // Adjust the maximum length as needed
+
+                                        if (strlen($description) > $maxLength) {
+                                            echo substr($description, 0, $maxLength) . '...';
+                                        } else {
+                                            echo $description;
+                                        }
+                                        ?>
+                                    </div>
+                                    <a class="btn btn-custom" href="aboutEvent.php?id=<?= $event['id'] ?>">Read More</a>
                                 </div>
+                                
                             </div>
+                            <a class="btn btn-custom" href="join-event.php?id=<?= $event['id'] ?>">Join Now</a>
                         </div>
                     </div>
 

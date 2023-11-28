@@ -47,4 +47,10 @@ class ParticipantController
         $db = Database::getConnection();
         return $db->query($query)->fetchAll();
     }
+    static function getParticipantsByEventCount(int $eventID): int
+    {
+        $query = "SELECT COUNT(*) FROM participants WHERE eventID = $eventID";
+        $db = Database::getConnection();
+        return $db->query($query)->fetchColumn();
+    }
 }

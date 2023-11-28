@@ -5,13 +5,14 @@ include_once '../../Controller/ParticipantController.php';
 use Controller\EventController;
 use Controller\ParticipantController;
 
-echo $_POST['name'];
+
 
 if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['phone']) && isset($_POST['id'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $id = $_POST['id'];
+    echo $id;
     try{
         ParticipantController::create($name, $email, $phone, $id);
         header('Location: event.php');

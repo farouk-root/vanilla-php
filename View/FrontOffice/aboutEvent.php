@@ -1,3 +1,20 @@
+<?php
+
+
+include_once '../../Controller/EventController.php';
+include_once '../../Controller/ParticipantController.php';
+include_once '../../Controller/SponsorController.php';
+
+use Controller\EventController;
+use Controller\ParticipantController;
+use Controller\SponsorController;
+
+$participants = ParticipantController::getParticipantsByEventCount(EventController::getOne($_GET['id'])['id']);
+$event= EventController::getOne($_GET['id']);
+$sponsors = SponsorController::getSponsorsByEventCount($_GET['id']);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -111,17 +128,19 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-6">
-                        <div class="about-img" data-parallax="scroll" data-image-src="img/about.jpg"></div>
+                        <div class="about-img" data-parallax="scroll" data-image-src="img/event-1.jpg"></div>
                     </div>
                     <div class="col-lg-6">
                         <div class="section-header">
                             <p>Learn About Us</p>
-                            <h2>Worldwide non-profit charity organization</h2>
+                            <h2><?php echo $event['name']?></h2>
+                            <a class="btn btn-custom" href="join-event.php?id=<?= $event['id'] ?>">Join As Participant</a>
+                            <a class="btn btn-custom" href="join-sponsor.php?id=<?= $event['id'] ?>">Sponsor Event</a>
                         </div>
                         <div class="about-tab">
                             <ul class="nav nav-pills nav-justified">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="pill" href="#tab-content-1">About</a>
+                                    <a class="nav-link active" data-toggle="pill" href="#tab-content-1">Description</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="pill" href="#tab-content-2">Mission</a>
@@ -133,13 +152,15 @@
 
                             <div class="tab-content">
                                 <div id="tab-content-1" class="container tab-pane active">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae pellentesque turpis. Donec in hendrerit dui, vel blandit massa. Ut vestibulum suscipit cursus. Cras quis porta nulla, ut placerat risus. Aliquam nec magna eget velit luctus dictum. Phasellus et felis sed purus tristique dignissim. Morbi sit amet leo at purus accumsan pellentesque. Vivamus fermentum nisi vel dapibus blandit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    <p>
+                                        <?php echo $event['description']?>
+                                    </p>
                                 </div>
                                 <div id="tab-content-2" class="container tab-pane fade">
-                                    Sed tincidunt, magna ut vehicula volutpat, turpis diam condimentum justo, posuere congue turpis massa in mi. Proin ornare at massa at fermentum. Nunc aliquet sed nisi iaculis ornare. Nam semper tortor eget est egestas, eu sagittis nunc sodales. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent bibendum sapien sed purus molestie malesuada. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
                                 </div>
                                 <div id="tab-content-3" class="container tab-pane fade">
-                                    Aliquam dolor odio, mollis sed feugiat sit amet, feugiat ut sapien. Nunc eu dignissim lorem. Suspendisse at hendrerit enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed condimentum semper turpis vel facilisis. Nunc vel faucibus orci. Mauris ut mauris rhoncus, efficitur nisi at, venenatis quam. Praesent egestas pretium enim sit amet finibus. Curabitur at erat molestie, tincidunt lorem eget, consequat ligula.
+
                                 </div>
                             </div>
                         </div>
@@ -158,8 +179,8 @@
                         <div class="facts-item">
                             <i class="flaticon-home"></i>
                             <div class="facts-text">
-                                <h3 class="facts-plus" data-toggle="counter-up">150</h3>
-                                <p>Countries</p>
+                                <h3 class="facts-plus" data-toggle="counter-up"><?php echo $sponsors?></h3>
+                                <p>Sponsors</p>
                             </div>
                         </div>
                     </div>
@@ -167,8 +188,8 @@
                         <div class="facts-item">
                             <i class="flaticon-charity"></i>
                             <div class="facts-text">
-                                <h3 class="facts-plus" data-toggle="counter-up">400</h3>
-                                <p>Volunteers</p>
+                                <h3 class="facts-plus" data-toggle="counter-up"><?php echo $participants?></h3>
+                                <p>Participants</p>
                             </div>
                         </div>
                     </div>

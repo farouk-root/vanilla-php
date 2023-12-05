@@ -152,7 +152,7 @@ else if (isset($_GET['id'])) {
                 </div>
                 <div class="col-lg-5">
                     <div class="donate-form">
-                        <form method="post">
+                        <form method="post" action="">
                             <div class="control-group">
                                 <input type="text" class="form-control" name="name" placeholder="Name" required="required"/>
                             </div>

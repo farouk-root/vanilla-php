@@ -144,7 +144,7 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['phone']) &&
                 </div>
                 <div class="contact-form">
                         <div id="success"></div>
-                        <form method="post" name="sentMessage"  id="contactForm" novalidate="novalidate">
+                        <form method="post" action="send_email.php" name="sentMessage" id="contactForm" novalidate="novalidate">
                             <div class="control-group">
                                 <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
                                 <p class="help-block text-danger"></p>
@@ -162,15 +162,15 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['phone']) &&
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <input type="text" class="form-control" id="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />
+                                <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <textarea class="form-control" id="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
+                                <textarea class="form-control" id="message" name="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div>
-                                <button class="btn btn-custom" type="submit"  id="sendMessageButton">Send Message</button>
+                                <button class="btn btn-custom" type="submit">Send Message</button>
                             </div>
                         </form>
                     </div>

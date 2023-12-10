@@ -39,6 +39,9 @@ $sponsors = SponsorController::getSponsorsByEventCount($_GET['id']);
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        
+
     </head>
 
     <body>
@@ -144,6 +147,12 @@ $sponsors = SponsorController::getSponsorsByEventCount($_GET['id']);
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="pill" href="#tab-content-2">Mission</a>
+                                    <div class="container">
+                                        <!-- ... (other content) ... -->
+
+                                            <button onclick="generateQRCode()">Generate QR Code for Event</button>
+                                            <div id="qrcode"></div>
+                                        </div>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="pill" href="#tab-content-3">Vision</a>
@@ -307,5 +316,9 @@ $sponsors = SponsorController::getSponsorsByEventCount($_GET['id']);
 
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
+        <script src="js/qrcode.min.js"></script>
+        <script src="script.js"></script>
+        
+        
     </body>
 </html>

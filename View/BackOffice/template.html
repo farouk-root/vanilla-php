@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Approval</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #666666;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        li strong {
+            color: #333333;
+            font-weight: bold;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #4caf50;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Event Approval</h1>
+        <p>Dear {{name}},</p>
+        <p>Your registration for the event has been approved. We look forward to seeing you there!</p>
+        <p>Event Details:</p>
+        <ul>
+            <li><strong>Name:</strong> {{eventName}}</li>
+            <li><strong>Date:</strong> {{eventDate}}</li>
+            <li><strong>Location:</strong> {{eventLocation}}</li>
+        </ul>
+        <p>If you have any questions, feel free to contact us. Thank you!</p>
+        <a href="http://localhost/vanilla-php/View/FrontOffice/event.php" class="button">Visit Event Page</a>
+    </div>
+</body>
+
+</html>

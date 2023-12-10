@@ -44,75 +44,80 @@ $participants =  ParticipantController::getParticipantsByEvent(EventController::
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    
+    <!-- Additional Style for Approved Participants -->
+    <style>
+        .approved-participant {
+            background-color: #d4edda !important; /* Use !important to override other styles */
+        }
+    </style>
 </head>
 
 <body>
 
-
-
-
-
 <!-- Sidebar Start -->
 <?php include_once 'components/sidebarEvent.php' ?>
-    <!-- Sidebar End -->
-
+<!-- Sidebar End -->
 
 <div class="content">
     <div class="col-12">
-                            <div class="bg-light rounded h-100 p-4">
-                                <h6 class="mb-4">Participants </h6>
-                                <div class="table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Name </th>
-                                                <th scope="col">Email</th>
-                                                <th scope="col">Phone</th>
-                                                <th scope="col">Event</th>
-                                                
-                                                
-                                                <th scope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php 
-                                            foreach ($participants as $participant ){
-                                                echo '<tr>';
-                                                echo '<th scope="row">'.$participant['id'].'</th>';
-                                                echo '<td>'.$participant['name'].'</td>';
-                                                echo '<td>'.$participant['email'].'</td>';
-                                                echo '<td>'.$participant['phone'].'</td>';
-                                                echo '<td>'.$participant['eventID'].'</td>';
-                                                
-                                                
-                                                echo '<td><a href="deleteParticipant.php?id='.$participant['id'].'" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a></td>';
-                                                echo '</tr>';
-                                            }
-                                            ?>
-                        
-                                        
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+        <div class="bg-light rounded h-100 p-4">
+            <h6 class="mb-4">Participants </h6>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Event</th>
+                            <th scope="col">Approve</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        foreach ($participants as $participant) {
+                            $rowClass = ($participant['status']) ? 'approved-participant' : ''; // Add this line
+
+                            echo '<tr class="' . $rowClass . '">';
+                            echo '<th scope="row">' . $participant['id'] . '</th>';
+                            echo '<td>' . $participant['name'] . '</td>';
+                            echo '<td>' . $participant['email'] . '</td>';
+                            echo '<td>' . $participant['phone'] . '</td>';
+                            echo '<td>' . $participant['eventID'] . '</td>';
+                            
+                            echo "<td>
+                                <form action='send_email.php' method='post'>
+                                    <a href='approveParticipants.php?id=" . $participant['id'] . "' class='text-success'><i class='fas fa-check-circle'></i></a>
+                                </form>
+                            </td>";
+                            echo '<td><a href="deleteParticipant.php?id=' . $participant['id'] . '" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a></td>';
+                            
+                            echo '</tr>';
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
-                    
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="lib/chart/chart.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/waypoints/waypoints.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="lib/tempusdominus/js/moment.min.js"></script>
+<script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
+<!-- Template Javascript -->
+<script src="js/main.js"></script>
+</body>
 
-
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+</html>

@@ -3,7 +3,8 @@
 namespace Controller;
 
 use Database;
-
+use Exception;
+include_once  __DIR__ . '/../Database.php';
 class ParticipantController
 {
     static function getAll(): array
@@ -22,10 +23,25 @@ class ParticipantController
 
     static function create(string $name, string $email, string $phone, int $eventID): void
     {
-        $query = "INSERT INTO participants (name, email, phone, eventID) VALUES ('$name', '$email', '$phone', $eventID)";
+        $query = "INSERT INTO participants (name, email, phone, eventID,status) VALUES ('$name', '$email', '$phone', $eventID , 0)";
         $db = Database::getConnection();
         $db->query($query);
     }
+
+    static function updateParticipantStatus(int $participantID): void
+    {
+        try {
+            $db = Database::getConnection();
+    
+            $query = "UPDATE participants SET status = 1 WHERE id = :id";
+            $req = $db->prepare($query);
+    
+            $req->execute(['id' => $participantID]);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+    
 
     static function update(int $id, string $name, string $email, string $phone, int $eventID): void
     {

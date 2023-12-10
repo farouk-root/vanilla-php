@@ -100,12 +100,17 @@ $eventCategories = EventCategoryController::getAll();
                                                 echo "<td>
                                                         <a href='getEventSponsors.php?id=".$event['id']."'><i class='fa fa-eye'></i></a>
                                                     </td>";
-                                                echo "<td>
+                                                echo "
+                                                <td>
+                                                
                                                         <a href='UpdateEvent.php?id=".$event['id']."'><i class='fa fa-edit'></i></a>
-                                                    </td>";
+                                                    
+                                                        </td>";
                                                 echo "<td>
                                                     <a href='deleteEvent.php?id=".$event['id']."'><i class='fa fa-trash'></i></a>
                                                 </td>";
+                                                
+                            
                                                 echo "</tr>";
                                             }
                                             ?>

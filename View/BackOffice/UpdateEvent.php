@@ -31,7 +31,7 @@ if (isset($_POST['submit'])) {
     $event = new Event($_GET['id'], $name, $startTime, $endTime, $location, $description, $registrationDeadline, $organisation, $category);
 
     EventController::update($event);
-    header("Location: getAllEvents.php");
+    header("Location: events.php");
 }
 ?>
 <!DOCTYPE html>

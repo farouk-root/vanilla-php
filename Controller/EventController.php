@@ -52,6 +52,7 @@ class EventController
 
     }
 
+
     static function update(Event $event)
     {
         $db = Database::getConnection();

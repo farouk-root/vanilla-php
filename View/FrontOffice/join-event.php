@@ -14,7 +14,7 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['phone']) &&
     $id = $_POST['id'];
     echo $id;
     try{
-        ParticipantController::create($name, $email, $phone, $id);
+        ParticipantController::create($name, $email, $phone, $id,);
         header('Location: event.php');
     }catch (Exception $e){
         echo $e->getMessage();

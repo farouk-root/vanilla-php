@@ -1,9 +1,6 @@
 <?php
 
-$name = $_POST["name"];
-$email = $_POST["email"];
-$subject = $_POST["subject"];
-$messageContent = $_POST["message"];
+
 
 // Load your email template
 $templatePath = "template.html";
@@ -31,11 +28,11 @@ $mail->Host = "smtp.gmail.com";
 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 $mail->Port = 587;
 
-$mail->Username = "asma.ibrahim@esprit.tn";
-$mail->Password = "221JFT6017";
+$mail->Username = "farouk.chalghoumi@esprit.tn";
+$mail->Password = "201JMT4923F";
 
 $mail->setFrom($email, $name);
-$mail->addAddress($email, "asma");
+$mail->addAddress($email, "farouk");
 
 $mail->Subject = $subject;
 $mail->Body = $template;

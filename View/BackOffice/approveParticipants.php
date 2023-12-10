@@ -20,7 +20,7 @@ require "../../vendor/autoload.php";
 
         $participantData = ParticipantController::getOne($participantID);
         $name = $participantData['name'];
-        $email = "farouk.chalghoumi@esprit.tn";
+        //$email = "your.email@example.com";
         $subject = "Event Approved";
         $messageContent = "Your registration has been approved.";
         $eventName = EventController::getOne($participantData['eventID'])['name'];
@@ -54,11 +54,11 @@ $template = str_replace("{{eventLocation}}", $eventLocation, $template);
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
-        $mail->Username = "farouk.chalghoumi@esprit.tn";
-        $mail->Password = "201JMT4923F";
+        $mail->Username = "your.email@example.com";
+        $mail->Password = "password";
 
         $mail->setFrom($email, $name);
-        $mail->addAddress($email, "farouk");
+        $mail->addAddress($email, "name");
 
         $mail->Subject = $subject;
         $mail->Body = $template;
